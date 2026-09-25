@@ -128,7 +128,6 @@ print("Құны:", cost, "| Кеңейтілген түйіндер:", expanded)
 
 import heapq
 
-# 1. Торды (Grid) анықтау
 grid = [
     ['S', '#', '.', '#', '.', '.'],#(4,3),(1,0)
     ['.', '#', '.', '#', '.', '.'],
@@ -142,17 +141,13 @@ start = (0, 0)
 goal = (5, 5)
 directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
-# Тор ішінде ме және кедергі емес пе екенін тексеру функциясы
 def is_valid(r, c):
     return 0 <= r < len(grid) and 0 <= c < len(grid[0]) and grid[r][c] != '#'
 
-# Манхэттен эвристикасы: h(n) = |r1 - r2| + |c1 - c2|
 def heuristic(a, b):
     return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
-# A* алгоритмі
 def a_star(grid, start, goal):
-    # Priority queue форматы: (f_score, g_score, current_node, path)
     pq = [(heuristic(start, goal), 0, start, [start])]
     g_scores = {start: 0}
     expanded_nodes = 0
@@ -165,7 +160,6 @@ def a_star(grid, start, goal):
 
         expanded_nodes += 1
 
-        # Мақсатты нүктеге жеткенін тексеру
         if current == goal:
             return path, g, expanded_nodes
 
@@ -181,7 +175,7 @@ def a_star(grid, start, goal):
 
     return None, float('inf'), expanded_nodes
 
-# Функцияны іске қосу және нәтижелерді шығару
+
 path, cost, expanded = a_star(grid, start, goal)
 
 print("--- A* Алгоритмінің нәтижесі ---")
